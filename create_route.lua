@@ -131,8 +131,8 @@ end
 local source, destination
 
 -- Select source and destination inventories
-source = selectInventory()
-destination = selectInventory2()
+source = selectInventory2()
+destination = selectInventory()
 
 term.clear()
 term.setCursorPos(1, 1)
