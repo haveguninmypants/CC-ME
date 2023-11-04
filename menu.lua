@@ -1,6 +1,6 @@
 -- Function to run "execute_routes.lua" in the background
 function runExecuteRoutesInBackground()
-  shell.opentab("MESYS/execute_routes.lua")
+  shell.openTab("MESYS/execute_routes.lua")
   print("Executing Routes in Background.")
   sleep(2)
 end
