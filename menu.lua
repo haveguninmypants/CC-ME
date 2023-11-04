@@ -1,6 +1,6 @@
 -- Function to run "execute_routes.lua" in the background
 function runExecuteRoutesInBackground()
-  shell.openTab("execute_routes.lua")
+  shell.opentab("MESYS/execute_routes.lua")
   print("Executing Routes in Background.")
   sleep(2)
 end
@@ -21,9 +21,9 @@ while true do
     print("Exiting Script Selector.")
     break
   elseif choice == 1 then
-    shell.run("create_route.lua")
+    shell.run("MESYS/create_route.lua")
   elseif choice == 2 then
-    shell.run("edit_delete_route.lua")
+    shell.run("MESYS/edit_delete_route.lua")
   else
     print("Invalid selection. Please enter a valid script number or '0' to exit.")
     sleep(2)
