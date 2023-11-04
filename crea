@@ -26,7 +26,7 @@ end
 
 -- Function to select a source and destination inventory
 -- Function to select a source and destination inventory
-function selectInventory()
+function selectInventory2()
   term.clear()
   term.setCursorPos(1, 1)
   local peripherals = peripheral.getNames()
