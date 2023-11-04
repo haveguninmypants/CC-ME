@@ -4,7 +4,7 @@ function editDeleteRoute(routingTable, source, destination, item, amount, delete
 
   -- Find and edit or delete the specified route
   for i, route in ipairs(routingTable) do
-    if not (route.source == source and route.destination == destination && route.item == item && route.amount == amount) then
+    if not (route.source == source and route.destination == destination and route.item == item and route.amount == amount) then
       table.insert(updatedRoutingTable, route)
     end
   end
