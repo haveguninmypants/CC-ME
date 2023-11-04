@@ -44,6 +44,7 @@ function transferItems(fromInventory, toInventory, itemName, amount)
 
   return true
 end
-
+while true do
 -- Main program
 executeRoutes()
+end
