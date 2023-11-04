@@ -4,8 +4,8 @@ function createRoute(source, destination, item, amount)
   local routingTable = {}
 
   -- Check if the routing table file already exists
-  if fs.exists("routing_table") then
-    local file = fs.open("routing_table", "r")
+  if fs.exists("/routing_table") then
+    local file = fs.open("/routing_table", "r")
     local contents = file.readAll()
     routingTable = textutils.unserialize(contents)
     file.close()
@@ -19,7 +19,7 @@ function createRoute(source, destination, item, amount)
   })
 
   -- Save the updated routing table to a file
-  local file = fs.open("routing_table", "w")
+  local file = fs.open("/routing_table", "w")
   file.write(textutils.serialize(routingTable))
   file.close()
 end
