@@ -13,7 +13,10 @@ function executeRoutes()
   -- Loop through the routing table and execute routes
   for _, route in pairs(routingTable) do
     print("Transferring items from " .. route.source .. " to " .. route.destination)
-    transferItems(route.source, route.destination, route.item, route.amount)
+    local p1 = peripheral.wrap(route.source)
+    local p2 = peripheral.wrap(route.destination)
+
+    transferItems(p1,p2 , route.item, route.amount)
   end
 end
 
