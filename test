@@ -1,7 +1,7 @@
 -- Function to create a route and save it to a file
 function createRoute(source, destination, item, amount)
   local routingTable = {}
- 
+
   -- Check if the routing table file already exists
   if fs.exists("routing_table") then
     local file = fs.open("routing_table", "r")
@@ -9,46 +9,50 @@ function createRoute(source, destination, item, amount)
     routingTable = textutils.unserialize(contents)
     file.close()
   end
- 
+
   table.insert(routingTable, {
     source = source,
     destination = destination,
     item = item,
     amount = amount
   })
- 
+
   -- Save the updated routing table to a file
   local file = fs.open("routing_table", "w")
   file.write(textutils.serialize(routingTable))
   file.close()
 end
 
--- Function to display a menu and get the user's selection with paging
-function selectOption(options, prompt)
-  local pageSize = 5
-  local totalPages = math.ceil(#options / pageSize)
+-- Function to select a source and destination inventory
+function selectInventory()
+  term.clear()
+  term.setCursorPos(1, 1)
+  local peripherals = peripheral.getNames()
+  table.sort(peripherals)  -- Sort the peripherals alphabetically
   local currentPage = 1
+  local pageSize = 7
+  local totalPages = math.ceil(#peripherals / pageSize)
 
   while true do
     term.clear()
     term.setCursorPos(1, 1)
-    print(prompt .. " (Page " .. currentPage .. " of " .. totalPages .. "):")
+    print("Select Source Inventory (Page " .. currentPage .. " of " .. totalPages .. "):")
 
     local startIndex = (currentPage - 1) * pageSize + 1
-    local endIndex = math.min(currentPage * pageSize, #options)
+    local endIndex = math.min(currentPage * pageSize, #peripherals)
 
     for i = startIndex, endIndex do
-      local option = options[i]
+      local option = peripherals[i]
       print(i .. ". " .. option)
     end
 
     print("Enter the number of your choice (N for Next, P for Previous):")
     local choice = read()
-
+    
     if tonumber(choice) then
       local numericChoice = tonumber(choice)
-      if numericChoice >= 1 and numericChoice <= #options then
-        return options[numericChoice]
+      if numericChoice >= 1 and numericChoice <= #peripherals then
+        return peripherals[numericChoice]
       end
     elseif choice:lower() == "n" and currentPage < totalPages then
       currentPage = currentPage + 1
@@ -57,18 +61,18 @@ function selectOption(options, prompt)
     end
   end
 end
- 
+
 -- Main program
 local source, destination
- 
--- Select source and destination inventories
 
- 
+-- Select source and destination inventories
+source, destination = selectInventory()
+
 term.clear()
 term.setCursorPos(1, 1)
 print("Enter the item you want to transfer:")
 local item = read()
 print("Enter the amount you want to transfer:")
 local amount = tonumber(read())
- 
+
 createRoute(source, destination, item, amount)
