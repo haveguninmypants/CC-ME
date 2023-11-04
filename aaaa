@@ -50,7 +50,7 @@ function selectInventory2()
   while true do
     term.clear()
     term.setCursorPos(1, 1)
-    print("Select Source Inventory (Page " .. currentPage .. " of " .. totalPages .. "):")
+    print("Select Destination Inventory (Page " .. currentPage .. " of " .. totalPages .. "):")
 
     local startIndex = (currentPage - 1) * pageSize + 1
     local endIndex = math.min(currentPage * pageSize, #peripherals)
@@ -100,7 +100,7 @@ function selectInventory()
   while true do
     term.clear()
     term.setCursorPos(1, 1)
-    print("Select Destination Inventory (Page " .. currentPage .. " of " .. totalPages .. "):")
+    print("Select Source Inventory (Page " .. currentPage .. " of " .. totalPages .. "):")
 
     local startIndex = (currentPage - 1) * pageSize + 1
     local endIndex = math.min(currentPage * pageSize, #peripherals)
