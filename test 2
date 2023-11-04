@@ -50,3 +50,4 @@ function selectInventory()
     end
   end
 end
+ selectInventory()
