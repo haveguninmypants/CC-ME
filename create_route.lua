@@ -1,3 +1,4 @@
+
 -- Function to create a route and save it to a file
 function createRoute(source, destination, item, amount)
   local routingTable = {}
@@ -24,38 +25,114 @@ function createRoute(source, destination, item, amount)
 end
 
 -- Function to select a source and destination inventory
-function selectInventory()
+-- Function to select a source and destination inventory
+function selectInventory2()
   term.clear()
   term.setCursorPos(1, 1)
-  print("Select Source Inventory:")
-  local source = selectOption(peripheral.getNames(), "Select a source inventory:")
-  term.clear()
-  term.setCursorPos(1, 1)
-  print("Select Destination Inventory:")
-  local destination = selectOption(peripheral.getNames(), "Select a destination inventory:")
-  return source, destination
-end
+  local peripherals = peripheral.getNames()
 
--- Function to display a menu and get the user's selection
-function selectOption(options, prompt)
+  -- Remove duplicates using a set data structure
+  local uniquePeripherals = {}
+  for _, peripheralName in ipairs(peripherals) do
+    uniquePeripherals[peripheralName] = true
+  end
+
+  peripherals = {}
+  for peripheralName, _ in pairs(uniquePeripherals) do
+    table.insert(peripherals, peripheralName)
+  end
+
+  table.sort(peripherals)  -- Sort the unique peripherals alphabetically
+  local currentPage = 1
+  local pageSize = 7
+  local totalPages = math.ceil(#peripherals / pageSize)
+
   while true do
-    print(prompt)
-    for i, option in ipairs(options) do
+    term.clear()
+    term.setCursorPos(1, 1)
+    print("Select Source Inventory (Page " .. currentPage .. " of " .. totalPages .. "):")
+
+    local startIndex = (currentPage - 1) * pageSize + 1
+    local endIndex = math.min(currentPage * pageSize, #peripherals)
+
+    for i = startIndex, endIndex do
+      local option = peripherals[i]
       print(i .. ". " .. option)
     end
-    print("Enter the number of your choice:")
-    local choice = tonumber(read())
-    if choice and choice >= 1 and choice <= #options then
-      return options[choice]
+
+    print("Enter the number of your choice (N for Next, P for Previous):")
+    local choice = read()
+
+    if tonumber(choice) then
+      local numericChoice = tonumber(choice)
+      if numericChoice >= 1 and numericChoice <= #peripherals then
+        return peripherals[numericChoice]
+      end
+    elseif choice:lower() == "n" and currentPage < totalPages then
+      currentPage = currentPage + 1
+    elseif choice:lower() == "p" and currentPage > 1 then
+      currentPage = currentPage - 1
     end
   end
 end
+
+function selectInventory()
+  term.clear()
+  term.setCursorPos(1, 1)
+  local peripherals = peripheral.getNames()
+
+  -- Remove duplicates using a set data structure
+  local uniquePeripherals = {}
+  for _, peripheralName in ipairs(peripherals) do
+    uniquePeripherals[peripheralName] = true
+  end
+
+  peripherals = {}
+  for peripheralName, _ in pairs(uniquePeripherals) do
+    table.insert(peripherals, peripheralName)
+  end
+
+  table.sort(peripherals)  -- Sort the unique peripherals alphabetically
+  local currentPage = 1
+  local pageSize = 7
+  local totalPages = math.ceil(#peripherals / pageSize)
+
+  while true do
+    term.clear()
+    term.setCursorPos(1, 1)
+    print("Select Destination Inventory (Page " .. currentPage .. " of " .. totalPages .. "):")
+
+    local startIndex = (currentPage - 1) * pageSize + 1
+    local endIndex = math.min(currentPage * pageSize, #peripherals)
+
+    for i = startIndex, endIndex do
+      local option = peripherals[i]
+      print(i .. ". " .. option)
+    end
+
+    print("Enter the number of your choice (N for Next, P for Previous):")
+    local choice = read()
+
+    if tonumber(choice) then
+      local numericChoice = tonumber(choice)
+      if numericChoice >= 1 and numericChoice <= #peripherals then
+        return peripherals[numericChoice]
+      end
+    elseif choice:lower() == "n" and currentPage < totalPages then
+      currentPage = currentPage + 1
+    elseif choice:lower() == "p" and currentPage > 1 then
+      currentPage = currentPage - 1
+    end
+  end
+end
+
 
 -- Main program
 local source, destination
 
 -- Select source and destination inventories
-source, destination = selectInventory()
+source = selectInventory()
+destination = selectInventory2()
 
 term.clear()
 term.setCursorPos(1, 1)
