@@ -1,5 +1,5 @@
 -- Ore Scanner Script with Dynamic Options
-
+local geoScanner = peripheral.wrap("back")
 -- Function to display available ores
 function displayOres()
     print("Available Ores:")
