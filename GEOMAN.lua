@@ -1,4 +1,4 @@
-
+local geoScanner = peripheral.wrap("back")
 -- Function to display available ores
 function displayOres()
     print("Available Ores:")
@@ -14,7 +14,7 @@ end
 function scanForOre(oreName)
     while true do
         local data = geoScanner.scan(16) -- Adjust the radius as needed
-
+sleep(1)
         
             for _, blockInfo in ipairs(data) do
                 if blockInfo.name == oreName then
@@ -23,14 +23,12 @@ function scanForOre(oreName)
             end
         
 
-        local cooldown = geoScanner.getScanCooldown()
-        print("Next scan in " .. cooldown .. " seconds.")
-        sleep(cooldown)
+        
     end
 end
 
 -- Main program
-local geoScanner = peripheral.wrap("back") -- Adjust the side as needed
+ -- Adjust the side as needed
 local oreOptions = {
     "minecraft:coal_ore",
     "minecraft:iron_ore",
