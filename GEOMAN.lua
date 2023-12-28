@@ -1,5 +1,4 @@
--- Ore Scanner Script with Dynamic Options
-local geoScanner = peripheral.wrap("back")
+
 -- Function to display available ores
 function displayOres()
     print("Available Ores:")
@@ -14,17 +13,15 @@ end
 -- Function to perform continuous scanning for a specific ore
 function scanForOre(oreName)
     while true do
-        local success, data, errorMessage = geoScanner.scan(16) -- Adjust the radius as needed
+        local data = geoScanner.scan(16) -- Adjust the radius as needed
 
-        if success then
+        
             for _, blockInfo in ipairs(data) do
                 if blockInfo.name == oreName then
                     print("Ore found at: X=" .. blockInfo.x .. " Y=" .. blockInfo.y .. " Z=" .. blockInfo.z)
                 end
             end
-        else
-            print("Scan failed: " .. errorMessage)
-        end
+        
 
         local cooldown = geoScanner.getScanCooldown()
         print("Next scan in " .. cooldown .. " seconds.")
@@ -33,7 +30,7 @@ function scanForOre(oreName)
 end
 
 -- Main program
-local geoScanner = peripheral.wrap("top") -- Adjust the side as needed
+local geoScanner = peripheral.wrap("back") -- Adjust the side as needed
 local oreOptions = {
     "minecraft:coal_ore",
     "minecraft:iron_ore",
